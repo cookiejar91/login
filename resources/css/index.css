@@ -1,0 +1,31 @@
+
+.main-container {
+    color: #191919;
+    width: 500px;
+    margin: 50px auto;
+}
+
+.error-message {
+    padding: 7px 10px;
+    background: #fff1f2;
+    border: #ffd5da 1px solid;
+    color: #d6001c;
+    border-radius: 4px;
+    margin: 30px 10px 10px 10px;
+}
+
+.button-container {
+    margin-top: 30px;
+}
+    .button-container input{
+        width: 100px;
+        margin-top: 30px;
+    }
+
+.welcome-text {
+    margin-bottom: 20px;
+}
+
+.input-container {
+    margin-bottom: 20px;
+}
