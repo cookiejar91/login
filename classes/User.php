@@ -67,10 +67,10 @@ class User
      * @param string $email
      * @param string $password
      *
-     * @return bool
+     * @return null|bool
      * @throws Exception
      */
-    public function login(string $email, string $password): bool
+    public function login(string $email, string $password): ?bool
     {
         if (!$email || !$password) {
             return false;
@@ -154,11 +154,11 @@ class User
         try {
             $res = $this->db->prepare($query);
             $res->execute([$name, $_SESSION['logged_id']]);
-
-            return true;
         } catch (PDOException $e) {
             throw new Exception($e);
         }
+
+        return true;
     }
 
     /**
@@ -197,7 +197,6 @@ class User
      */
     public function logOut()
     {
-
         session_destroy();
         session_unset();
         session_reset();
@@ -227,7 +226,7 @@ class User
             $res = $this->db->prepare($query);
             $res->execute([$email]);
 
-            return $res->fetch(PDO::FETCH_ASSOC);
+            return $res->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (PDOException $e) {
             throw new Exception($e);
         }

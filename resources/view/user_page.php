@@ -10,22 +10,23 @@
 
     <div class="main-container">
 
-        <div class="welcome-text">Привет, <? echo $name ?></div>
+        <div class="welcome-text">Привет, <?php echo $name; ?></div>
         <div class="welcome-text">Ничего интересного в личном кабинете. Можете сменить имя и пароль, если хотите. Ещё
             можете выйти.
         </div>
+        <div class="welcome-text">E-mail: <?php echo $email; ?></div>
         <form action="index.php" method="post" onSubmit="return validate();">
             <div class="input-container">
                 <div>
-                    <label for="update_name">Сменить имя</label><span id="password_info"></span>
+                    <label for="name">Сменить имя</label>
                 </div>
                 <div>
-                    <input class="form-control" name="name" id="name" type="text"
+                    <input class="form-control" name="name" type="text"
                            placeholder="Ваше новое имя">
                 </div>
             </div>
             <input type="hidden" name="action" value="updateName" />
-            <button class="btn btn-sm " type="submit" name="name">
+            <button class="btn btn-sm " type="submit">
                 Сменить
             </button>
         </form>
@@ -41,7 +42,7 @@
             </div>
             <div class="button-container">
                 <input type="hidden" name="action" value="updatePassword" />
-                <button class="btn btn-sm " type="submit" name="password">
+                <button class="btn btn-sm " type="submit">
                     Сменить
                 </button>
             </div>
@@ -53,7 +54,6 @@
         </div>
 
     </div>
-    </form>
 </div>
 </body>
 </html>

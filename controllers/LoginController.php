@@ -28,10 +28,14 @@ class LoginController
 
     /**
      * Главная страница.
+     *
+     * @param bool $logOut Пришел ли пользователь с действия разлогина.
+     *
+     * @throws Exception
      */
-    public function index(): void
+    public function index(bool $logOut = false): void
     {
-        if (isset($_SESSION['logged_id']) && $_SESSION['logged_id']) {
+        if (isset($_SESSION['logged_id']) && $_SESSION['logged_id'] && !$logOut) {
             $data = $this->service->getUserDataById($_SESSION['logged_id']);
             echo $this->getTemplate('user_page', $data);
         } else {
@@ -42,7 +46,7 @@ class LoginController
     /**
      * Страница создания нового пользователя.
      */
-    public function createUser()
+    public function create()
     {
         echo $this->getTemplate('create_user');
     }
@@ -59,11 +63,18 @@ class LoginController
         $password = $this->getFromRequest(self::PASSWORD);
 
         if (!$password || !$email) {
+            echo 'Логин или пароль не могут быть пустыми!';
+            $this->index();
+
             return false;
         }
 
-        $this->service->login($email, $password);
+        if (!$this->service->login($email, $password)) {
+            echo 'Неверный логин или пароль!';
+        }
+
         $this->index();
+
         return true;
     }
 
@@ -82,10 +93,13 @@ class LoginController
         $this->service->createUser($userName, $password, $email);
 
         if (!$userName || !$password || !$email) {
+            echo 'Не заполнено одно из полей!';
+
             return false;
         }
 
         $this->index();
+
         return true;
     }
 
@@ -102,8 +116,12 @@ class LoginController
             return false;
         }
 
-        $this->service->updatePassword($password);
+        if (!$this->service->updatePassword($password)) {
+            echo 'ОШИБКА! Не удалось сменить пароль. Пароль должен быть от 6 до 20 символов.';
+        }
+
         $this->index();
+
         return true;
     }
 
@@ -120,8 +138,12 @@ class LoginController
             return false;
         }
 
-        $this->service->updateUserName($name);
+        if (!$this->service->updateUserName($name)) {
+            echo 'ОШИБКА! Не удалось сменить имя. Имя должно быть от 2 до 50 символов.';
+        }
+
         $this->index();
+
         return true;
     }
 
@@ -132,7 +154,7 @@ class LoginController
     {
         $this->service->logOut();
 
-        $this->index();
+        $this->index(true);
     }
 
     /**
@@ -148,7 +170,9 @@ class LoginController
         if (!empty($data)) {
             extract($data);
         }
+
         ob_start();
+
         include "resources/view/$templateName.php";
 
         return ob_get_clean();

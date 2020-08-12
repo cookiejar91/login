@@ -1,7 +1,5 @@
 <?php
-/**
- * Простой роутинг.
- */
+
 declare(strict_types=1);
 
 error_reporting(E_ALL);
@@ -11,6 +9,6 @@ $router = new Router();
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : null;
 $parameters = $_REQUEST;
 
-$router->route($action, $parameters);
+$router->route($action);
 
 
