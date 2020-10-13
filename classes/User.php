@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 require_once './DB.php';
 
+/** Класс пользователя. */
 class User
 {
-    private $id;
+    private int $id;
 
-    private $name;
+    private string $name;
 
-    private $email;
+    private string $email;
 
-    private $password;
+    private string $password;
 
-    private $db;
+    private PDO $db;
 
     /**
      * User constructor.
@@ -25,6 +26,8 @@ class User
     }
 
     /**
+     * Создает нового пользователя.
+     *
      * @param string $userName
      * @param string $password
      * @param string $email
@@ -64,6 +67,8 @@ class User
     }
 
     /**
+     * Производит логин.
+     *
      * @param string $email
      * @param string $password
      *
@@ -193,9 +198,9 @@ class User
     }
 
     /**
-     * Выходит ищ аккаунта.
+     * Выходит из аккаунта.
      */
-    public function logOut()
+    public function logOut(): void
     {
         session_destroy();
         session_unset();
@@ -268,13 +273,13 @@ class User
     }
 
     /**
-     * Валидирует e-mail пользователя.
+     * Валидирует e-mail пользователя и возвращает e-mail или null.
      *
      * @param string $email
      *
-     * @return string
+     * @return null|string
      */
-    private function checkEmail(string $email): string
+    private function checkEmail(string $email): ?string
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
