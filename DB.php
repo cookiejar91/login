@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 session_start();
 
+/** Класс для работы с БД */
 class DB {
     /**
      * @var string Имя хоста.
