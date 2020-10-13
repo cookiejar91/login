@@ -46,7 +46,7 @@ class LoginController
     /**
      * Страница создания нового пользователя.
      */
-    public function create()
+    public function create(): void
     {
         echo $this->getTemplate('create_user');
     }
@@ -177,8 +177,15 @@ class LoginController
 
         return ob_get_clean();
     }
-
-    public function getFromRequest($parameterName)
+    
+    /**
+     * Возвращает параметр из запроса.
+     *
+     * @param string $parameterName 
+     *
+     * @return null|string
+     */
+    public function getFromRequest($parameterName): ?string
     {
         return trim($_REQUEST[$parameterName]);
     }
