@@ -2,9 +2,10 @@
 
 require_once __DIR__. '/../controllers/LoginController.php';
 
+/** Простой роутинг. */
 class Router
 {
-    private $controller;
+    private LoginController $controller;
 
     /** Доступные для посмотра страницы. */
     const AVAILABLE_ACTIONS = ['updateName', 'updatePassword', 'addUser', 'login', 'logOut', 'create'];
@@ -12,8 +13,8 @@ class Router
     /**
      * Router constructor.
      */
-    public function __construct() {
-        $this->controller = new LoginController();
+    public function __construct(LoginController $controller) {
+        $this->controller = $controller;
     }
 
     /**
